@@ -21,16 +21,14 @@ namespace GymSystemDAL.Repositories.Classes
             _dbContext = dbContext;
         }
 
-        public int Add(TEntity entity)
+        public void Add(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
-            return _dbContext.SaveChanges();
         }
 
-        public int Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             _dbContext.Set<TEntity>().Remove(entity);
-            return _dbContext.SaveChanges();
         }
 
         public IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null)
@@ -46,10 +44,9 @@ namespace GymSystemDAL.Repositories.Classes
             return _dbContext.Set<TEntity>().Find(id);
         }
 
-        public int Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             _dbContext.Set<TEntity>().Update(entity);
-            return _dbContext.SaveChanges();
         }
     }
 }

@@ -57,7 +57,7 @@ namespace GymSystemBLL.Services.Classes
         {
             var Trainers = _trainerRepository.GetAll();
             
-            if (Trainers == null || Trainers.Any()) return [];
+            if (Trainers == null || !Trainers.Any()) return [];
 
             var TrainerViewModels = Trainers.Select(X => new TrainerViewModel
             {

@@ -1,4 +1,6 @@
+using GymSystemBLL.MappingProfiles;
 using GymSystemDAL.Data.Contexts;
+using GymSystemDAL.Data.DataSeed;
 using GymSystemDAL.Repositories.Classes;
 using GymSystemDAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -29,8 +31,26 @@ namespace GymSystemPL
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddAutoMapper(X => X.AddProfile(new MappingProfiles()));
 
             var app = builder.Build();
+
+            #region Data Seed
+
+            // Create Session With Database Manually
+            var Scope = app.Services.CreateScope();
+            var dbContext = Scope.ServiceProvider.GetRequiredService<GymSystemDbContext>();
+
+            // Check If There I Migration Pending or Not
+            var PendingMigration = dbContext.Database.GetPendingMigrations();
+            if (PendingMigration?.Any() ?? false)
+                dbContext.Database.Migrate();
+
+            GymDbContextSeeding.SeedData(dbContext);
+
+            #endregion
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

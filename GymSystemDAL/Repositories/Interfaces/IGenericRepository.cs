@@ -12,9 +12,9 @@ namespace GymSystemDAL.Repositories.Interfaces
         TEntity? GetById(int id);
         IEnumerable<TEntity> GetAll(Func<TEntity, bool>? condition = null);
 
-        int Add(TEntity entity);
-        int Delete(TEntity entity);
-        int Update(TEntity entity);
+        void Add(TEntity entity);
+        void Delete(TEntity entity);
+        void Update(TEntity entity);
 
         // If there is some entity that has extra operation
         // We create an Interface for it and makes it inherite this interface
