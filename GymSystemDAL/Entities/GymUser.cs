@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymSystemDAL.Entities
 {
-    internal class GymUser : BaseEntity
+    public abstract class GymUser : BaseEntity
     {
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;
@@ -19,7 +19,7 @@ namespace GymSystemDAL.Entities
     }
 
     [Owned]
-    class Address()
+    public class Address()
     {
         public int BuildingNumber { get; set; }
         public string Street { get; set; } = null!;

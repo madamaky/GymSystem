@@ -7,10 +7,10 @@ using GymSystemDAL.Entities.Enums;
 
 namespace GymSystemDAL.Entities
 {
-    internal class Trainer : GymUser
+    public class Trainer : GymUser
     {
         // CreatedAt Column Exited In BaseEntity
-        // I Will Use This Column As HireDate For Member => Configurations
+        // I Will Use This Column As HireDate => Configurations
 
         public Specialties Specialties { get; set; }
 

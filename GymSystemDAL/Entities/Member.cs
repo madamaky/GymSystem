@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymSystemDAL.Entities
 {
-    internal class Member : GymUser
+    public class Member : GymUser
     {
         // CreatedAt Column Exited In BaseEntity
         // I Will Use This Column As JoinDate For Member => Configurations
