@@ -1,4 +1,6 @@
 using GymSystemBLL.MappingProfiles;
+using GymSystemBLL.Services.Classes;
+using GymSystemBLL.Services.Interfaces;
 using GymSystemDAL.Data.Contexts;
 using GymSystemDAL.Data.DataSeed;
 using GymSystemDAL.Repositories.Classes;
@@ -34,13 +36,15 @@ namespace GymSystemPL
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
             builder.Services.AddAutoMapper(X => X.AddProfile(new MappingProfiles()));
+            builder.Services.AddScoped<IMemberService, MemberService>();
+            builder.Services.AddScoped<ITrainerService, TrainerService>();
 
             var app = builder.Build();
 
             #region Data Seed
 
             // Create Session With Database Manually
-            var Scope = app.Services.CreateScope();
+            /*using*/ var Scope = app.Services.CreateScope();
             var dbContext = Scope.ServiceProvider.GetRequiredService<GymSystemDbContext>();
 
             // Check If There I Migration Pending or Not

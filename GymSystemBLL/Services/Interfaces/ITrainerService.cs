@@ -3,23 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GymSystemBLL.ViewModels;
+using GymSystemBLL.ViewModels.TrainerViewModels;
 
 namespace GymSystemBLL.Services.Interfaces
 {
-    internal interface ITrainerService
+    public interface ITrainerService
     {
         IEnumerable<TrainerViewModel> GetAllTrainers();
-
-        bool CreateTrainers(CreateTrainerViewModel createTrainer);
-
-        TrainerViewModel? GetTrainerDetails(int TrainerId);
-
-        // GetTrainerId To Update View
-        TrainerToUpdateViewModel? GetTrainerToUpdate(int TrainerId);
-        // Apply Update
-        bool UpdateTrainerDetails(int id, TrainerToUpdateViewModel updatedTrainer);
-
-        bool RemoveTrainer(int TrainerId);
+        bool CreateTrainer(CreateTrainerViewModel createdTrainer);
+        TrainerViewModel? GetTrainerDetails(int trainerId);
+        TrainerToUpdateViewModel? GetTrainerToUpdate(int trainerId);
+        bool UpdateTrainerDetails(TrainerToUpdateViewModel updatedTrainer, int trainerId);
+        bool RemoveTrainer(int trainerId);
     }
 }
