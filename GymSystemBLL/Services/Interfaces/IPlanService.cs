@@ -7,7 +7,7 @@ using GymSystemBLL.ViewModels.PlanViewModels;
 
 namespace GymSystemBLL.Services.Interfaces
 {
-    internal interface IPlanService
+    public interface IPlanService
     {
         IEnumerable<PlanViewModel> GetAllPlans();
 

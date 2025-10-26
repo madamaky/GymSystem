@@ -82,7 +82,9 @@ namespace GymSystemBLL.Services.Classes
                 Email = Trainer.Email,
                 Name = Trainer.Name,
                 Phone = Trainer.Phone,
-                Specialties = Trainer.Specialties.ToString()
+                Specialties = Trainer.Specialties.ToString(),
+                DateOfBirth = Trainer.DateOfBirth.ToString(),
+                Address = $"{Trainer.Address.BuildingNumber} - {Trainer.Address.Street} - {Trainer.Address.City}"
             };
         }
 

@@ -1,12 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GymSystemBLL.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GymSystemPL.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAnalyticsService _analyticsService;
+
+        public HomeController(IAnalyticsService analyticsService)
+        {
+            _analyticsService = analyticsService;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var Data = _analyticsService.GetAnalyticsData();
+
+            return View(Data);
         }
     }
 }
