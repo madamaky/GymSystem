@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 
 namespace GymSystemBLL.Services.Classes
 {
-    internal class SessionService : ISessionService
+    public class SessionService : ISessionService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -145,6 +145,18 @@ namespace GymSystemBLL.Services.Classes
             }
         }
 
+        public IEnumerable<TrainerSelectViewModel> GetTrainerForSessions()
+        {
+            var Trainers = _unitOfWork.GetRepository<Trainer>().GetAll();
+            return _mapper.Map<IEnumerable<TrainerSelectViewModel>>(Trainers);
+        }
+
+        public IEnumerable<CategorySelectViewModel> GetCategoryForSessions()
+        {
+            var Categories = _unitOfWork.GetRepository<Category>().GetAll();
+            return _mapper.Map<IEnumerable<CategorySelectViewModel>>(Categories);
+        }
+
         #region Helper Methods
 
         private bool IsTrainerExist(int TrainerId)
@@ -159,7 +171,7 @@ namespace GymSystemBLL.Services.Classes
 
         private bool IsDateTimeValid(DateTime StartDate, DateTime EndDate)
         {
-            return StartDate > EndDate;
+            return StartDate < EndDate;
         }
 
         private bool IsSessionAvailableToUpdate(Session session)
@@ -181,8 +193,8 @@ namespace GymSystemBLL.Services.Classes
         {
             if (session is null) return false;
 
-            // If Session Completed => Cannot Delete
-            if (session.EndDate < DateTime.Now) return false;
+            //// If Session Completed => Cannot Delete
+            //if (session.EndDate < DateTime.Now) return false;
             // If Session Upcoming => Cannot Delete
             if (session.StartDate > DateTime.Now) return false;
             // If Session Ongoing => Cannot Delete

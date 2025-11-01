@@ -38,7 +38,6 @@ namespace GymSystemPL.Controllers
                 return View(nameof(Create), model);
             }
 
-
             var result = _trainerService.CreateTrainer(model);
 
             if (result)
