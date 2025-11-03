@@ -11,7 +11,7 @@ namespace GymSystemDAL.Entities
         // CreatedAt Column Exited In BaseEntity
         // I Will Use This Column As JoinDate For Member => Configurations
 
-        public string? Photo { get; set; }
+        public string Photo { get; set; } = null!;
 
         #region Member 1 : 1 HealthRecord
 
