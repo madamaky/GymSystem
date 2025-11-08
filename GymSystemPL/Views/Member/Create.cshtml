@@ -4,7 +4,9 @@
 <header class="mb-4">
     <h3 class="text-primary-color">Add Member</h3>
 </header>
-<form asp-action="CreateMember" method="post">
+
+<!--Type of Form Accept text/html-->
+<form asp-action="CreateMember" method="post" enctype="multipart/form-data">
 
     <!-- Step navigation -->
     <ul class="nav nav-tabs mb-4" id="addMemberTabs" role="tablist">
@@ -31,6 +33,16 @@
                 <h5 class="text-primary fw-bold">Personal Information</h5>
                 <hr class="mt-2">
             </div>
+
+            @* Photo Preview *@
+            <div class="mt-2">
+                <img id="photoPreview" src="#" alt="Photo Preview" style="max-width: 200px; display: none;" class="img-thumbnail" />
+            </div>
+            <label asp-for="PhotoFile" class="control-label">Profile Photo <span class="text-danger">*</span></label>
+			<input asp-for="PhotoFile" type="file" class="form-control" accept="image/*" id="PhotoInput" required />
+			<span asp-validation-for="PhotoFile" class="text-danger"></span>
+			<small class="form-text text-muted">Max size: 5MB. Allowed types: JPG, PNG, JPEG (Required)</small>
+
             <div class="row g-3">
                 <div class="col-12 col-md-6">
                     <label asp-for="Name" class="form-label"></label>
@@ -141,4 +153,19 @@
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial" />
+
+	<script>
+        document.getElementById('PhotoInput').addEventListener('change', function (event) {
+			const file = event.target.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+                    var preview = document.getElementById('photoPreview');
+					preview.src = e.target.result;
+					preview.style.display = 'block';
+				};
+				reader.readAsDataURL(file);
+			} 
+		});
+	</script>
 }
