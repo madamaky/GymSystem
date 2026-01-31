@@ -9,10 +9,10 @@ namespace GymSystemDAL.Entities
     public class Membership : BaseEntity
     {
         public int MemberId { get; set; } // FK From Member
-        public Member Member { get; set; }
+        public Member Member { get; set; } = null!;
 
         public int PlanId { get; set; }
-        public Plan Plan { get; set; }
+        public Plan Plan { get; set; } = null!;
 
         // StartDate == CteatedAt => BaseEntity
 

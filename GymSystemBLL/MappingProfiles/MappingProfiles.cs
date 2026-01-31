@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using GymSystemBLL.ViewModels.BookingViewModel;
+using GymSystemBLL.ViewModels.MembershipViewModels;
 using GymSystemBLL.ViewModels.SessionViewModels;
 using GymSystemDAL.Entities;
 
@@ -27,6 +29,31 @@ namespace GymSystemBLL.MappingProfiles
             CreateMap<Trainer, TrainerSelectViewModel>();
             CreateMap<Category, CategorySelectViewModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.CategoryName));
+
+            MapMemberships();
+            MapBooking();
+        }
+
+        private void MapMemberships()
+        {
+            CreateMap<Membership, MembershipViewModel>()
+                .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
+                .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Plan.Name))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreatedAt));
+
+            CreateMap<CreateMembershipViewModel, Membership>();
+
+            CreateMap<Plan, PlanForSelectListViewModel>();
+            CreateMap<Member, MemberForSelectListViewModel>();
+        }
+
+        private void MapBooking()
+        {
+            CreateMap<MemberSession, MemberForSessionViewModel>()
+                .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
+                .ForMember(dest => dest.BookingDate, opt => opt.MapFrom(src => src.CreatedAt.ToString()));
+
+            CreateMap<CreateBookingViewModel, MemberSession>();
         }
     }
 }

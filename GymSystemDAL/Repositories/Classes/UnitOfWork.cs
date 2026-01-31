@@ -14,13 +14,21 @@ namespace GymSystemDAL.Repositories.Classes
         private readonly Dictionary<Type, object> _repositories = new Dictionary<Type, object>();
         private readonly GymSystemDbContext _dbContext;
 
-        public UnitOfWork(GymSystemDbContext dbContext, ISessionRepository sessionRepository)
+        public UnitOfWork(GymSystemDbContext dbContext, 
+            ISessionRepository sessionRepository,
+            IMembershipRepository membershipRepository,
+            IBookingRepository bookingRepository)
         {
             _dbContext = dbContext;
             SessionRepository = sessionRepository;
+            MembershipRepository = membershipRepository;
+            BookingRepository = bookingRepository;
         }
 
+
         public ISessionRepository SessionRepository { get; }
+        public IMembershipRepository MembershipRepository { get; }
+        public IBookingRepository BookingRepository { get; }
 
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new()
         {
@@ -36,8 +44,6 @@ namespace GymSystemDAL.Repositories.Classes
         }
 
         public int SaveChanges()
-        {
-            return _dbContext.SaveChanges();
-        }
+            => _dbContext.SaveChanges();
     }
 }
