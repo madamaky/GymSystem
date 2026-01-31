@@ -1,32 +1,22 @@
-using System.Diagnostics;
-using GymSystemPL.Models;
+﻿using GymSystemBLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymSystemPL.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IAnalyticsService _analyticsService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IAnalyticsService analyticsService)
         {
-            _logger = logger;
+            _analyticsService = analyticsService;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            var Data = _analyticsService.GetAnalyticsData();
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(Data);
         }
     }
 }
