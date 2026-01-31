@@ -11,12 +11,13 @@ namespace GymSystemDAL.Repositories.Interfaces
     {
         // Call IUnitOfWork For Asking Specific Repository
         // Method to Return Repository
-        // Metho SaveChanges()
-
-        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new();
-
-        int SaveChanges();
+        // Method SaveChanges()
 
         public ISessionRepository SessionRepository { get; }
+        public IMembershipRepository MembershipRepository { get; }
+        public IBookingRepository BookingRepository { get; }
+
+        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity, new();
+        int SaveChanges();
     }
 }

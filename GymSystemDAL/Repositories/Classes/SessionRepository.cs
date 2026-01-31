@@ -29,9 +29,7 @@ namespace GymSystemDAL.Repositories.Classes
         }
 
         public int GetCountOfBookedSlot(int sessionId)
-        {
-            return _dbContext.MemberSessions.Count(X => X.SessionId == sessionId);
-        }
+            => _dbContext.MemberSessions.Count(X => X.SessionId == sessionId);
 
         public Session? GetSessionWithTrainerAndCategory(int sessionId)
         {
